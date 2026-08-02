@@ -4,6 +4,7 @@ import { useServicesContext } from '../../context/ServicesContext'
 import { usePetsContext } from '../../context/PetsContext'
 import { useCareLogsContext } from '../../context/CareLogsContext'
 import { useFinanceContext } from '../../context/FinanceContext'
+import { DashboardCharts } from '../../components/app/DashboardCharts'
 import { STATUS_LABELS } from '../../types/order'
 import { formatCurrency } from '../../utils/pricing'
 
@@ -77,6 +78,12 @@ export function DashboardPage() {
           <div className="stat-card__label">A receber</div>
         </div>
       </div>
+
+      <DashboardCharts
+        customers={customers}
+        monthIncome={summary.monthIncome}
+        monthExpense={summary.monthExpense}
+      />
 
       <div className="dashboard-grid">
         <div className="panel">

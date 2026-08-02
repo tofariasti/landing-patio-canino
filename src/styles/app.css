@@ -207,6 +207,166 @@
   letter-spacing: -0.03em;
 }
 
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.chart-panel {
+  overflow: hidden;
+}
+
+.chart-panel__hint {
+  margin: 0.15rem 0 0;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.chart-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  color: var(--color-primary-dark);
+  background: color-mix(in srgb, var(--color-primary) 14%, white);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
+}
+
+.chart-badge--warm {
+  color: var(--color-sun-dark);
+  background: color-mix(in srgb, var(--color-sun) 12%, white);
+  border-color: color-mix(in srgb, var(--color-sun) 28%, transparent);
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  color: var(--color-text);
+  margin-top: 0.25rem;
+}
+
+.chart-svg__value {
+  fill: var(--color-primary-dark);
+  font-size: 11px;
+  font-weight: 800;
+  font-family: var(--font-display);
+}
+
+.chart-svg__label {
+  fill: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.chart-svg__center-value {
+  fill: var(--color-primary-dark);
+  font-size: 28px;
+  font-weight: 800;
+  font-family: var(--font-display);
+}
+
+.chart-svg__center-label {
+  fill: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.donut-wrap {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 0.75rem 1rem;
+  align-items: center;
+}
+
+.chart-svg--donut {
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.donut-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.donut-legend li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+}
+
+.donut-legend__dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 8%, transparent);
+}
+
+.donut-legend__label { color: var(--color-text); font-weight: 600; }
+
+.donut-legend strong {
+  color: var(--color-primary-dark);
+  font-family: var(--font-display);
+}
+
+.donut-legend__finance {
+  margin-top: 0.35rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--color-border);
+  grid-template-columns: 1fr !important;
+  gap: 0.25rem !important;
+}
+
+.donut-legend__finance span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.mini-bars {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+}
+
+.mini-bars__income,
+.mini-bars__expense {
+  display: block;
+  height: 0.45rem;
+  border-radius: 999px;
+  max-width: 100%;
+}
+
+.mini-bars__income {
+  background: linear-gradient(90deg, #3fa06a, #0f4f30);
+}
+
+.mini-bars__expense {
+  background: linear-gradient(90deg, #fdba74, #c2410c);
+}
+
+@media (max-width: 1100px) {
+  .charts-grid,
+  .donut-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
 .quick-links {
   display: flex;
   flex-wrap: wrap;
