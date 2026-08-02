@@ -54,11 +54,19 @@ test.describe('Mini-app', () => {
     await expect(page.getByLabel('Ou cole um link do YouTube')).toBeVisible()
   })
 
-  test('settings page toggles theme', async ({ page }) => {
+  test('settings page defaults to light and can toggle theme', async ({ page }) => {
+    await page.goto('./#/app')
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+
     await page.goto('./#/app/configuracoes')
     await expect(page.getByRole('heading', { name: 'Configurações' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Claro' })).toHaveClass(/is-active/)
+
     await page.getByRole('button', { name: 'Escuro' }).click()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+
+    await page.getByRole('button', { name: 'Claro' }).click()
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
   })
 
   test('edits brand identity and whatsapp', async ({ page }) => {

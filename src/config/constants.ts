@@ -17,7 +17,8 @@ export const STORAGE_KEYS = {
   careLogs: 'patiocanino-demo-care-logs',
   gallery: 'patiocanino-demo-gallery',
   siteSettings: 'patiocanino-demo-site-settings',
-  theme: 'patiocanino-demo-theme',
+  /** v2: padrão claro no painel (ignora preferência antiga “dark”) */
+  theme: 'patiocanino-demo-theme-v2',
 } as const
 
 export const SITE_URL = 'https://tofariasti.github.io/landing-patio-canino/site/'

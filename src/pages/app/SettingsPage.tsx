@@ -5,13 +5,13 @@ import { usePetsContext } from '../../context/PetsContext'
 import { useCareLogsContext } from '../../context/CareLogsContext'
 import { useGalleryContext } from '../../context/GalleryContext'
 import { useSiteSettingsContext } from '../../context/SiteSettingsContext'
-import { useTheme } from '../../hooks/useTheme'
+import { useThemeContext } from '../../context/ThemeContext'
 import type { SiteSettings } from '../../types/siteSettings'
 import { MAX_IMAGE_BYTES, readFileAsDataUrl } from '../../utils/files'
 import { sanitizeWhatsAppNumber } from '../../hooks/useSiteSettings'
 
 export function SettingsPage() {
-  const { theme, setTheme, toggleTheme } = useTheme()
+  const { theme, setTheme, toggleTheme } = useThemeContext()
   const { customers, resetCustomers } = useCustomersContext()
   const { services, resetServices } = useServicesContext()
   const { pets, resetPets } = usePetsContext()
