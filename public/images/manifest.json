@@ -1,0 +1,44 @@
+{
+  "hero.jpg": {
+    "unsplashSlug": "1548199973-03cce0bbc87b",
+    "unsplashId": "N04F13EuWvY",
+    "description": "Dois cães correndo juntos em gramado aberto",
+    "bytes": 182575
+  },
+  "hero-card.jpg": {
+    "unsplashSlug": "1552053831-71594a27632d",
+    "unsplashId": "ybHtKzNmN6A",
+    "description": "Golden retriever olhando para a câmera",
+    "bytes": 206841
+  },
+  "about.jpg": {
+    "unsplashSlug": "1601758228041-f3b2795255f1",
+    "unsplashId": "2l0CW7YWnDg",
+    "description": "Cão brincando ao ar livre",
+    "bytes": 325676
+  },
+  "services.jpg": {
+    "unsplashSlug": "1530281700549-e82e7bf110d6",
+    "unsplashId": "Sg3TlmX7OE",
+    "description": "Cão correndo em espaço aberto",
+    "bytes": 264942
+  },
+  "process.jpg": {
+    "unsplashSlug": "1583511655857-d19b40a7a54e",
+    "unsplashId": "Mv9hjnEUHR4",
+    "description": "Cão em ambiente acolhedor",
+    "bytes": 87256
+  },
+  "delivery.jpg": {
+    "unsplashSlug": "1583337130417-3346a1be7dee",
+    "unsplashId": "qQWym7I7J2g",
+    "description": "Cão feliz em área externa",
+    "bytes": 229094
+  },
+  "og-image.jpg": {
+    "unsplashSlug": "1544568100-847a948585b9",
+    "unsplashId": "N04F13EuWvY",
+    "description": "Cão em gramado — imagem OG",
+    "bytes": 142004
+  }
+}
