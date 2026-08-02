@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { AnimatedSection } from '../ui/AnimatedSection'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 const FAQ_ITEMS = [
   {
@@ -26,6 +28,7 @@ const FAQ_ITEMS = [
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const reducedMotion = useReducedMotion()
 
   return (
     <AnimatedSection className="faq section" id="faq" aria-labelledby="faq-title">
@@ -51,14 +54,31 @@ export function FAQ() {
                 >
                   {item.q}
                   <span className="faq__icon" aria-hidden="true">
-                    +
+                    {isOpen ? '−' : '+'}
                   </span>
                 </button>
-                {isOpen && (
-                  <div id={panelId} className="faq__answer" role="region">
-                    {item.a}
-                  </div>
-                )}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      id={panelId}
+                      className="faq__answer"
+                      role="region"
+                      initial={
+                        reducedMotion ? false : { height: 0, opacity: 0 }
+                      }
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={
+                        reducedMotion
+                          ? undefined
+                          : { height: 0, opacity: 0 }
+                      }
+                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <div className="faq__answer-inner">{item.a}</div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             )
           })}

@@ -1,4 +1,4 @@
-import { AnimatedSection } from '../ui/AnimatedSection'
+import { AnimatedSection, StaggerGroup, StaggerItem } from '../ui/AnimatedSection'
 import { IMAGES } from '../../config/constants'
 
 const OPTIONS = [
@@ -37,17 +37,17 @@ export function DeliveryOptions() {
             Estrutura e rotina inspiradas no que tutores mais valorizam: liberdade,
             segurança e transparência.
           </p>
-          <ul className="delivery__list">
+          <StaggerGroup as="ul" className="delivery__list">
             {OPTIONS.map((opt) => (
-              <li key={opt.title}>
+              <StaggerItem key={opt.title} as="li">
                 <span className="delivery__icon" aria-hidden="true" />
                 <div>
                   <strong>{opt.title}</strong>
                   <p>{opt.desc}</p>
                 </div>
-              </li>
+              </StaggerItem>
             ))}
-          </ul>
+          </StaggerGroup>
         </div>
         <div className="delivery__media">
           <img

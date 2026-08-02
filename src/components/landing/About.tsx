@@ -1,5 +1,24 @@
-import { AnimatedSection } from '../ui/AnimatedSection'
+import { AnimatedSection, StaggerGroup, StaggerItem } from '../ui/AnimatedSection'
 import { IMAGES, STORE } from '../../config/constants'
+
+const FEATURES = [
+  {
+    title: 'Supervisão 24h',
+    text: 'monitoramento contínuo e cuidado individualizado',
+  },
+  {
+    title: 'Enriquecimento',
+    text: 'energia física e mental com treinos e brincadeiras',
+  },
+  {
+    title: 'Comunicação clara',
+    text: 'fotos, vídeos e aviso imediato de qualquer alteração',
+  },
+  {
+    title: 'Ambiente familiar',
+    text: 'gramado, sombra e convivência supervisionada',
+  },
+]
 
 export function About() {
   return (
@@ -26,24 +45,13 @@ export function About() {
             Na {STORE.name}, o bem-estar animal é regra: hospedagem sem gaiolas,
             estímulos naturais e profissionais que acompanham cada cão de perto.
           </p>
-          <ul className="about__features">
-            <li>
-              <strong>Supervisão 24h</strong> — monitoramento contínuo e cuidado
-              individualizado
-            </li>
-            <li>
-              <strong>Enriquecimento</strong> — energia física e mental com
-              treinos e brincadeiras
-            </li>
-            <li>
-              <strong>Comunicação clara</strong> — fotos, vídeos e aviso imediato
-              de qualquer alteração
-            </li>
-            <li>
-              <strong>Ambiente familiar</strong> — gramado, sombra e convivência
-              supervisionada
-            </li>
-          </ul>
+          <StaggerGroup as="ul" className="about__features">
+            {FEATURES.map((f) => (
+              <StaggerItem key={f.title} as="li">
+                <strong>{f.title}</strong> — {f.text}
+              </StaggerItem>
+            ))}
+          </StaggerGroup>
         </div>
       </div>
     </AnimatedSection>

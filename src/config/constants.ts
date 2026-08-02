@@ -32,6 +32,10 @@ export const IMAGES = {
   og: `${SITE_URL}images/og-image.jpg`,
 } as const
 
+export const VIDEOS = {
+  hero: asset('videos/hero.mp4'),
+} as const
+
 export const PRIORITY_MULTIPLIER = 1.5
 export const PICKUP_FEE = 20
 export const MIN_DAYS = 1

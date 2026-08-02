@@ -1,4 +1,4 @@
-import { AnimatedSection } from '../ui/AnimatedSection'
+import { AnimatedSection, StaggerGroup, StaggerItem } from '../ui/AnimatedSection'
 import { IMAGES } from '../../config/constants'
 
 const SERVICE_CARDS = [
@@ -36,7 +36,11 @@ const SERVICE_CARDS = [
 
 export function Services() {
   return (
-    <AnimatedSection className="services section section--alt" id="servicos" aria-labelledby="services-title">
+    <AnimatedSection
+      className="services section section--alt"
+      id="servicos"
+      aria-labelledby="services-title"
+    >
       <div className="container">
         <div className="services__header">
           <div>
@@ -57,16 +61,16 @@ export function Services() {
             />
           </div>
         </div>
-        <div className="services__grid">
+        <StaggerGroup className="services__grid">
           {SERVICE_CARDS.map((card) => (
-            <article key={card.title} className="service-card">
+            <StaggerItem key={card.title} as="article" className="service-card">
               <span className="service-card__mark" aria-hidden="true" />
               <h3 className="service-card__title">{card.title}</h3>
               <p className="service-card__desc">{card.desc}</p>
               <p className="service-card__price">{card.price}</p>
-            </article>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </div>
     </AnimatedSection>
   )

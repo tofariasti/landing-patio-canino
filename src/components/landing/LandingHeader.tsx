@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { id: 'orcamento', label: 'Simular' },
   { id: 'diferenciais', label: 'Diferenciais' },
   { id: 'processo', label: 'Processo' },
+  { id: 'galeria', label: 'Galeria' },
   { id: 'depoimentos', label: 'Depoimentos' },
   { id: 'faq', label: 'FAQ' },
   { id: 'contato', label: 'Contato' },

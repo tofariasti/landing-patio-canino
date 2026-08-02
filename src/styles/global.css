@@ -7,38 +7,38 @@
 /*
  * Design tokens — Pátio Canino
  * Tipografia: Outfit (corpo, UI) + Fraunces (títulos)
- * Paleta exclusiva: cedro profundo + samambaia + mel dourado + névoa sage
+ * Paleta clara: branco dominante + sage mínimo nos acentos
  * (evita roxo/indigo, cream+terracotta e layout de jornal)
  */
 :root,
 [data-theme='light'] {
-  --color-bg: #eef5f1;
-  --color-bg-alt: #e2ece6;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f7f9f8;
   --color-surface: #ffffff;
-  --color-text: #14201c;
-  --color-text-muted: #4a5c54;
-  --color-primary: #2f6848;
-  --color-primary-light: #5a9a72;
-  --color-primary-dark: #1f4a34;
-  --color-accent: #e8f3ec;
-  --color-accent-warm: #fff6e0;
-  --color-honey: #d4a017;
-  --color-honey-light: #f0c75a;
-  --color-mint: #8ec9a8;
-  --color-border: rgba(47, 104, 72, 0.16);
-  --color-shadow: rgba(20, 32, 28, 0.12);
-  --color-error: #c43c3c;
-  --color-success: #2f7a52;
-  --color-warning: #c48912;
-  --color-star: #d4a017;
-  --color-sidebar-bg: #1a2f28;
-  --color-sidebar-text: rgba(238, 245, 241, 0.92);
-  --color-hero-from: #1a2f28;
-  --color-hero-via: #244038;
-  --color-hero-to: #0f1c18;
-  --color-demo-bg: #e8f3ec;
-  --color-demo-text: #2b5a40;
-  --color-demo-border: #8ec9a8;
+  --color-text: #2c3832;
+  --color-text-muted: #6b7a72;
+  --color-primary: #4f8a6a;
+  --color-primary-light: #7eb396;
+  --color-primary-dark: #3a6b52;
+  --color-accent: #f3f8f5;
+  --color-accent-warm: #faf8f4;
+  --color-honey: #b89a6a;
+  --color-honey-light: #d4bc8e;
+  --color-mint: #c5dccf;
+  --color-border: rgba(58, 107, 82, 0.1);
+  --color-shadow: rgba(44, 56, 50, 0.06);
+  --color-error: #c45c5c;
+  --color-success: #4f8a6a;
+  --color-warning: #b89a6a;
+  --color-star: #b89a6a;
+  --color-sidebar-bg: #f7f9f8;
+  --color-sidebar-text: #2c3832;
+  --color-hero-from: #ffffff;
+  --color-hero-via: #eef4f0;
+  --color-hero-to: #dce8e1;
+  --color-demo-bg: #f3f8f5;
+  --color-demo-text: #3a6b52;
+  --color-demo-border: #c5dccf;
   --font-body: 'Outfit', system-ui, sans-serif;
   --font-display: 'Fraunces', Georgia, serif;
   --radius-sm: 10px;
@@ -51,33 +51,33 @@
 }
 
 [data-theme='dark'] {
-  --color-bg: #101814;
-  --color-bg-alt: #1a2a23;
-  --color-surface: #1a2a23;
-  --color-text: #eef5f1;
-  --color-text-muted: #9bb0a5;
-  --color-primary: #6fad84;
-  --color-primary-light: #8ec9a8;
-  --color-primary-dark: #3f7d5a;
-  --color-accent: #244038;
-  --color-accent-warm: #3a3018;
-  --color-honey: #f0c75a;
-  --color-honey-light: #d4a017;
-  --color-mint: #6fad84;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-shadow: rgba(0, 0, 0, 0.4);
-  --color-error: #f07171;
-  --color-success: #6fad84;
-  --color-warning: #f0c75a;
-  --color-star: #f0c75a;
-  --color-sidebar-bg: #0f1c18;
-  --color-sidebar-text: rgba(238, 245, 241, 0.9);
-  --color-hero-from: #0f1c18;
-  --color-hero-via: #1a2f28;
-  --color-hero-to: #07110e;
-  --color-demo-bg: #244038;
-  --color-demo-text: #b8e0c8;
-  --color-demo-border: #3f7d5a;
+  --color-bg: #141a17;
+  --color-bg-alt: #1c2420;
+  --color-surface: #1c2420;
+  --color-text: #f4f7f5;
+  --color-text-muted: #a7b5ad;
+  --color-primary: #7eb396;
+  --color-primary-light: #a8d0b8;
+  --color-primary-dark: #4f8a6a;
+  --color-accent: #24302b;
+  --color-accent-warm: #2c2a24;
+  --color-honey: #d4bc8e;
+  --color-honey-light: #b89a6a;
+  --color-mint: #7eb396;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-shadow: rgba(0, 0, 0, 0.35);
+  --color-error: #e08a8a;
+  --color-success: #7eb396;
+  --color-warning: #d4bc8e;
+  --color-star: #d4bc8e;
+  --color-sidebar-bg: #141a17;
+  --color-sidebar-text: rgba(244, 247, 245, 0.92);
+  --color-hero-from: #1c2420;
+  --color-hero-via: #24302b;
+  --color-hero-to: #141a17;
+  --color-demo-bg: #24302b;
+  --color-demo-text: #c5dccf;
+  --color-demo-border: #4f8a6a;
 }
 
 html {
@@ -149,9 +149,9 @@ textarea {
 
 .section--foam {
   background:
-    radial-gradient(ellipse at 20% 0%, color-mix(in srgb, var(--color-mint) 28%, transparent), transparent 55%),
-    radial-gradient(ellipse at 90% 100%, color-mix(in srgb, var(--color-honey) 18%, transparent), transparent 50%),
-    var(--color-bg);
+    radial-gradient(ellipse at 15% 0%, color-mix(in srgb, var(--color-mint) 18%, transparent), transparent 50%),
+    radial-gradient(ellipse at 90% 100%, color-mix(in srgb, var(--color-honey) 10%, transparent), transparent 45%),
+    #ffffff;
 }
 
 .section-label {
@@ -201,12 +201,12 @@ textarea {
 }
 
 .btn--primary {
-  background: var(--color-primary-dark);
+  background: var(--color-primary);
   color: #fff;
 }
 
 .btn--primary:hover {
-  background: #163828;
+  background: var(--color-primary-dark);
   color: #fff;
 }
 

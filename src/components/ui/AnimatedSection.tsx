@@ -7,14 +7,46 @@ interface AnimatedSectionProps {
   className?: string
   delay?: number
   id?: string
+  /** Enable stagger for direct motion children using itemVariants */
+  stagger?: boolean
 }
 
-const variants: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0 },
+const sectionVariants: Variants = {
+  hidden: { opacity: 0, y: 36 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
 }
 
-export function AnimatedSection({ children, className, delay = 0, id }: AnimatedSectionProps) {
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.06,
+    },
+  },
+}
+
+export const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 22 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+}
+
+export function AnimatedSection({
+  children,
+  className,
+  delay = 0,
+  id,
+  stagger = false,
+}: AnimatedSectionProps) {
   const reducedMotion = useReducedMotion()
 
   if (reducedMotion) {
@@ -31,9 +63,9 @@ export function AnimatedSection({ children, className, delay = 0, id }: Animated
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-80px' }}
-      variants={variants}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: '-72px' }}
+      variants={stagger ? staggerContainer : sectionVariants}
+      transition={stagger ? undefined : { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.section>
@@ -56,11 +88,61 @@ export function FadeIn({ children, className, delay = 0 }: FadeInProps) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
+  )
+}
+
+interface StaggerItemProps {
+  children: ReactNode
+  className?: string
+  as?: 'div' | 'li' | 'article' | 'blockquote'
+}
+
+export function StaggerItem({ children, className, as = 'div' }: StaggerItemProps) {
+  const reducedMotion = useReducedMotion()
+  const Component = motion[as]
+
+  if (reducedMotion) {
+    const Tag = as
+    return <Tag className={className}>{children}</Tag>
+  }
+
+  return (
+    <Component className={className} variants={itemVariants}>
+      {children}
+    </Component>
+  )
+}
+
+interface StaggerGroupProps {
+  children: ReactNode
+  className?: string
+  as?: 'div' | 'ul' | 'ol'
+}
+
+export function StaggerGroup({ children, className, as = 'div' }: StaggerGroupProps) {
+  const reducedMotion = useReducedMotion()
+  const Component = motion[as]
+
+  if (reducedMotion) {
+    const Tag = as
+    return <Tag className={className}>{children}</Tag>
+  }
+
+  return (
+    <Component
+      className={className}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-60px' }}
+      variants={staggerContainer}
+    >
+      {children}
+    </Component>
   )
 }

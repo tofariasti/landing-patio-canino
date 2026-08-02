@@ -1,4 +1,4 @@
-import { AnimatedSection } from '../ui/AnimatedSection'
+import { AnimatedSection, StaggerGroup, StaggerItem } from '../ui/AnimatedSection'
 
 const TESTIMONIALS = [
   {
@@ -35,9 +35,9 @@ export function Testimonials() {
             Tutores que confiam no Pátio Canino
           </h2>
         </div>
-        <div className="testimonials__grid">
+        <StaggerGroup className="testimonials__grid">
           {TESTIMONIALS.map((t) => (
-            <blockquote key={t.name} className="testimonial-card">
+            <StaggerItem key={t.name} as="blockquote" className="testimonial-card">
               <div
                 className="testimonial-card__stars"
                 aria-label={`${t.rating} de 5 estrelas`}
@@ -49,9 +49,9 @@ export function Testimonials() {
                 <strong>{t.name}</strong>
                 <span>{t.role}</span>
               </footer>
-            </blockquote>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </div>
     </AnimatedSection>
   )

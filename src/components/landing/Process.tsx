@@ -1,4 +1,4 @@
-import { AnimatedSection } from '../ui/AnimatedSection'
+import { AnimatedSection, StaggerGroup, StaggerItem } from '../ui/AnimatedSection'
 import { IMAGES } from '../../config/constants'
 
 const STEPS = [
@@ -42,9 +42,9 @@ export function Process() {
             Fluxo transparente do primeiro contato até o check-out — com
             acompanhamento no painel demo ou pelo WhatsApp.
           </p>
-          <ol className="process__steps">
+          <StaggerGroup as="ol" className="process__steps">
             {STEPS.map((step) => (
-              <li key={step.num} className="process__step">
+              <StaggerItem key={step.num} as="li" className="process__step">
                 <span className="process__num" aria-hidden="true">
                   {step.num}
                 </span>
@@ -52,9 +52,9 @@ export function Process() {
                   <strong>{step.title}</strong>
                   <p>{step.description}</p>
                 </div>
-              </li>
+              </StaggerItem>
             ))}
-          </ol>
+          </StaggerGroup>
         </div>
         <div className="process__image">
           <img

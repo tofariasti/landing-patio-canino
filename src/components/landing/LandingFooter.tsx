@@ -28,6 +28,11 @@ export function LandingFooter() {
                 </a>
               </li>
               <li>
+                <a href="#galeria" onClick={(e) => handleSectionNav(e, 'galeria')}>
+                  Galeria
+                </a>
+              </li>
+              <li>
                 <a href="#contato" onClick={(e) => handleSectionNav(e, 'contato')}>
                   Contato
                 </a>

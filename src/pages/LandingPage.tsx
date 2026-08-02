@@ -6,6 +6,7 @@ import { Services } from '../components/landing/Services'
 import { PriceCalculator } from '../components/landing/PriceCalculator'
 import { DeliveryOptions } from '../components/landing/DeliveryOptions'
 import { Process } from '../components/landing/Process'
+import { Gallery } from '../components/landing/Gallery'
 import { Testimonials } from '../components/landing/Testimonials'
 import { FAQ } from '../components/landing/FAQ'
 import { Contact } from '../components/landing/Contact'
@@ -30,6 +31,7 @@ export function LandingPage() {
         <PriceCalculator />
         <DeliveryOptions />
         <Process />
+        <Gallery />
         <Testimonials />
         <FAQ />
         <Contact />
