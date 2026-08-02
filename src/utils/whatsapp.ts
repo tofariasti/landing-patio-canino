@@ -1,4 +1,4 @@
-import { WHATSAPP_NUMBER, STORE } from '../config/constants'
+import { WHATSAPP_NUMBER } from '../config/constants'
 
 export interface ContactFormData {
   nome: string
@@ -23,9 +23,12 @@ export function validateContactForm(data: ContactFormData): Record<string, strin
   return errors
 }
 
-export function buildWhatsAppMessage(data: ContactFormData): string {
+export function buildWhatsAppMessage(
+  data: ContactFormData,
+  storeName = 'Pátio Canino',
+): string {
   const lines = [
-    `Olá! Gostaria de informações sobre serviços na ${STORE.name}.`,
+    `Olá! Gostaria de informações sobre serviços na ${storeName}.`,
     '',
     `*Nome:* ${data.nome.trim()}`,
     `*Telefone:* ${data.telefone.trim()}`,
@@ -39,11 +42,19 @@ export function buildWhatsAppMessage(data: ContactFormData): string {
   return lines.join('\n')
 }
 
-export function buildWhatsAppUrl(data: ContactFormData): string {
-  const message = buildWhatsAppMessage(data)
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+export function buildWhatsAppUrl(
+  data: ContactFormData,
+  options?: { whatsappNumber?: string; storeName?: string },
+): string {
+  const number = (options?.whatsappNumber || WHATSAPP_NUMBER).replace(/\D/g, '')
+  const message = buildWhatsAppMessage(data, options?.storeName)
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`
 }
 
-export function buildQuickWhatsAppUrl(text: string): string {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
+export function buildQuickWhatsAppUrl(
+  text: string,
+  whatsappNumber?: string,
+): string {
+  const number = (whatsappNumber || WHATSAPP_NUMBER).replace(/\D/g, '')
+  return `https://wa.me/${number}?text=${encodeURIComponent(text)}`
 }

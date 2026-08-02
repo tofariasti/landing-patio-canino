@@ -12,8 +12,10 @@ import {
 } from '../../utils/pricing'
 import { buildQuickWhatsAppUrl } from '../../utils/whatsapp'
 import { MAX_DAYS, MIN_DAYS, PICKUP_FEE } from '../../config/constants'
+import { useSiteSettingsContext } from '../../context/SiteSettingsContext'
 
 export function PriceCalculator() {
+  const { settings, whatsappDigits } = useSiteSettingsContext()
   const activeServices = useMemo(
     () => SEED_SERVICES.filter((s) => s.active && s.price > 0),
     [],
@@ -49,7 +51,7 @@ export function PriceCalculator() {
 
   const whatsappText =
     service && estimate
-      ? `Olá! Simulei uma estadia no Pátio Canino:\n• ${service.name}\n• ${service.unit === 'dia' ? `${weightKg} dia(s)` : `${quantity} sessão(ões)`}\n• Total estimado: ${formatCurrency(estimate.total)}\n\nGostaria de agendar avaliação.`
+      ? `Olá! Simulei uma estadia no ${settings.name}:\n• ${service.name}\n• ${service.unit === 'dia' ? `${weightKg} dia(s)` : `${quantity} sessão(ões)`}\n• Total estimado: ${formatCurrency(estimate.total)}\n\nGostaria de agendar avaliação.`
       : ''
 
   return (
@@ -209,7 +211,7 @@ export function PriceCalculator() {
                   </div>
                 </dl>
                 <a
-                  href={buildQuickWhatsAppUrl(whatsappText)}
+                  href={buildQuickWhatsAppUrl(whatsappText, whatsappDigits)}
                   className="btn btn--primary"
                   target="_blank"
                   rel="noopener noreferrer"

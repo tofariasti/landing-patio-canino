@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { STORE } from '../../config/constants'
+import { BrandLogo } from '../ui/BrandLogo'
+import { useSiteSettingsContext } from '../../context/SiteSettingsContext'
 import { handleSectionNav } from '../../utils/scroll'
+import { buildQuickWhatsAppUrl } from '../../utils/whatsapp'
 
 const NAV_LINKS = [
-  { id: 'sobre', label: 'Sobre' },
+  { id: 'sobre', label: 'Quem somos' },
   { id: 'servicos', label: 'Serviços' },
-  { id: 'orcamento', label: 'Simular' },
   { id: 'diferenciais', label: 'Diferenciais' },
-  { id: 'processo', label: 'Processo' },
   { id: 'galeria', label: 'Galeria' },
   { id: 'depoimentos', label: 'Depoimentos' },
-  { id: 'faq', label: 'FAQ' },
   { id: 'contato', label: 'Contato' },
 ]
 
 export function LandingHeader() {
+  const { settings, whatsappDigits } = useSiteSettingsContext()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -26,6 +26,10 @@ export function LandingHeader() {
   }, [])
 
   const closeMobile = () => setMobileOpen(false)
+  const waUrl = buildQuickWhatsAppUrl(
+    `Olá! Quero informações sobre o ${settings.name}.`,
+    whatsappDigits,
+  )
 
   return (
     <header className={`landing-header${scrolled ? ' is-scrolled' : ''}`}>
@@ -38,7 +42,7 @@ export function LandingHeader() {
             handleSectionNav(e, 'home')
           }}
         >
-          Pátio <span>Canino</span>
+          <BrandLogo variant="header" />
         </a>
 
         <nav className="landing-header__nav" aria-label="Navegação principal">
@@ -54,9 +58,17 @@ export function LandingHeader() {
         </nav>
 
         <div className="landing-header__actions">
-          <Link to="/app" className="btn btn--outline btn--sm">
-            Painel demo
+          <Link to="/app" className="btn btn--outline btn--sm landing-header__demo">
+            Painel
           </Link>
+          <a
+            href={waUrl}
+            className="btn btn--primary btn--sm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp
+          </a>
           <button
             type="button"
             className="landing-header__toggle"
@@ -77,7 +89,7 @@ export function LandingHeader() {
         className={`landing-header__mobile${mobileOpen ? ' is-open' : ''}`}
         aria-label="Menu mobile"
       >
-        <p className="landing-header__mobile-brand">{STORE.name}</p>
+        <p className="landing-header__mobile-brand">{settings.name}</p>
         {NAV_LINKS.map((link) => (
           <a
             key={link.id}
@@ -90,7 +102,16 @@ export function LandingHeader() {
             {link.label}
           </a>
         ))}
-        <Link to="/app" className="btn btn--primary" onClick={closeMobile}>
+        <a
+          href={waUrl}
+          className="btn btn--primary"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={closeMobile}
+        >
+          Falar no WhatsApp
+        </a>
+        <Link to="/app" className="btn btn--outline" onClick={closeMobile}>
           Painel demo
         </Link>
       </nav>

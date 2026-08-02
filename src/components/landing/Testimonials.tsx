@@ -32,7 +32,7 @@ export function Testimonials() {
         <div style={{ textAlign: 'center' }}>
           <span className="section-label">Depoimentos</span>
           <h2 className="section-title" id="testimonials-title">
-            Tutores que confiam no Pátio Canino
+            Semeamos amor — e os tutores comprovam
           </h2>
         </div>
         <StaggerGroup className="testimonials__grid">

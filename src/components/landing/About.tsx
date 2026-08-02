@@ -1,26 +1,26 @@
 import { AnimatedSection, StaggerGroup, StaggerItem } from '../ui/AnimatedSection'
-import { IMAGES, STORE } from '../../config/constants'
+import { IMAGES } from '../../config/constants'
+import { useSiteSettingsContext } from '../../context/SiteSettingsContext'
+import { buildQuickWhatsAppUrl } from '../../utils/whatsapp'
 
-const FEATURES = [
+const PILLARS = [
   {
-    title: 'Supervisão 24h',
-    text: 'monitoramento contínuo e cuidado individualizado',
+    title: 'Missão',
+    text: 'Cuidar com carinho e respeito, unindo segurança, socialização e comodidade para as famílias.',
   },
   {
-    title: 'Enriquecimento',
-    text: 'energia física e mental com treinos e brincadeiras',
+    title: 'Visão',
+    text: 'Ser a escolha número um de tutores que não abrem mão de qualidade e de uma vida ativa para o pet.',
   },
   {
-    title: 'Comunicação clara',
-    text: 'fotos, vídeos e aviso imediato de qualquer alteração',
-  },
-  {
-    title: 'Ambiente familiar',
-    text: 'gramado, sombra e convivência supervisionada',
+    title: 'Valores',
+    text: 'Cada cão como parte da família — ambiente saudável, humano e dedicado ao bem-estar.',
   },
 ]
 
 export function About() {
+  const { settings, whatsappDigits } = useSiteSettingsContext()
+
   return (
     <AnimatedSection className="about section" id="sobre" aria-labelledby="about-title">
       <div className="container about__grid">
@@ -30,28 +30,36 @@ export function About() {
             alt="Cães brincando em gramado aberto ao ar livre"
             loading="lazy"
           />
-          <div className="about__badge">
-            <span>Bem-estar primeiro</span>
-            <strong>Livre de gaiolas</strong>
-            espaço aberto o dia todo
-          </div>
         </div>
         <div className="about__content">
-          <span className="section-label">Sobre nós</span>
+          <span className="section-label">Quem somos</span>
           <h2 className="section-title" id="about-title">
-            Um pátio pensado por e para tutores
+            Um pátio criado por e para tutores
           </h2>
           <p className="section-lead">
-            Na {STORE.name}, o bem-estar animal é regra: hospedagem sem gaiolas,
-            estímulos naturais e profissionais que acompanham cada cão de perto.
+            Na {settings.name}, o bem-estar animal é regra: hospedagem sem gaiolas,
+            estímulos naturais e profissionais que acompanham cada cão de perto —
+            com a tranquilidade que você precisa.
           </p>
-          <StaggerGroup as="ul" className="about__features">
-            {FEATURES.map((f) => (
-              <StaggerItem key={f.title} as="li">
-                <strong>{f.title}</strong> — {f.text}
+          <StaggerGroup className="about__pillars">
+            {PILLARS.map((item) => (
+              <StaggerItem key={item.title} as="article" className="about__pillar">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
               </StaggerItem>
             ))}
           </StaggerGroup>
+          <a
+            href={buildQuickWhatsAppUrl(
+              `Olá! Quero conhecer o ${settings.name} e agendar um dia de avaliação.`,
+              whatsappDigits,
+            )}
+            className="btn btn--lawn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Agendar dia de avaliação
+          </a>
         </div>
       </div>
     </AnimatedSection>

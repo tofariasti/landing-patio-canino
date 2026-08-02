@@ -2,7 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AnimatedSection, StaggerGroup, StaggerItem } from '../ui/AnimatedSection'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
-import { GALLERY_ITEMS, type GalleryItem, type GalleryItemType } from '../../data/gallery'
+import { useGalleryContext } from '../../context/GalleryContext'
+import type { GalleryItem, GalleryItemType } from '../../data/gallery'
 
 type Filter = 'all' | GalleryItemType
 
@@ -17,14 +18,15 @@ function youtubeEmbedUrl(id: string) {
 }
 
 export function Gallery() {
+  const { visibleItems } = useGalleryContext()
   const [filter, setFilter] = useState<Filter>('all')
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const reducedMotion = useReducedMotion()
 
   const items = useMemo(() => {
-    if (filter === 'all') return GALLERY_ITEMS
-    return GALLERY_ITEMS.filter((item) => item.type === filter)
-  }, [filter])
+    if (filter === 'all') return visibleItems
+    return visibleItems.filter((item) => item.type === filter)
+  }, [filter, visibleItems])
 
   const activeItem = activeIndex != null ? items[activeIndex] : null
 
@@ -105,11 +107,22 @@ export function Gallery() {
                 onClick={() => openItem(item)}
                 aria-label={`Abrir ${item.type === 'video' ? 'vídeo' : 'foto'}: ${item.caption}`}
               >
-                <img
-                  src={item.type === 'video' ? item.poster : item.src}
-                  alt={item.alt}
-                  loading="lazy"
-                />
+                {item.src.startsWith('data:video') ? (
+                  <video src={item.src} muted playsInline preload="metadata" />
+                ) : (
+                  <img
+                    src={
+                      item.type === 'video'
+                        ? item.poster ||
+                          (item.youtubeId
+                            ? `https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg`
+                            : item.src)
+                        : item.src
+                    }
+                    alt={item.alt}
+                    loading="lazy"
+                  />
+                )}
                 {item.type === 'video' && (
                   <span className="gallery__play" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="28" height="28">

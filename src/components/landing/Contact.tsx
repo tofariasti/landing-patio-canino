@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { AnimatedSection } from '../ui/AnimatedSection'
-import { IMAGES, STORE, WHATSAPP_NUMBER } from '../../config/constants'
+import { IMAGES } from '../../config/constants'
+import { useSiteSettingsContext } from '../../context/SiteSettingsContext'
 import {
+  buildQuickWhatsAppUrl,
   buildWhatsAppUrl,
   validateContactForm,
   type ContactFormData,
@@ -17,6 +19,7 @@ const INITIAL: ContactFormData = {
 }
 
 export function Contact() {
+  const { settings, whatsappDigits } = useSiteSettingsContext()
   const [form, setForm] = useState<ContactFormData>(INITIAL)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [success, setSuccess] = useState(false)
@@ -36,10 +39,23 @@ export function Contact() {
       setSuccess(false)
       return
     }
-    window.open(buildWhatsAppUrl(form), '_blank', 'noopener,noreferrer')
+    window.open(
+      buildWhatsAppUrl(form, {
+        whatsappNumber: whatsappDigits,
+        storeName: settings.name,
+      }),
+      '_blank',
+      'noopener,noreferrer',
+    )
     setSuccess(true)
     setForm(INITIAL)
   }
+
+  const floatSrc = settings.whatsappFloatDataUrl || IMAGES.whatsappFloat
+  const floatHref = buildQuickWhatsAppUrl(
+    `Olá! Gostaria de informações sobre hospedagem/creche no ${settings.name}.`,
+    whatsappDigits,
+  )
 
   return (
     <AnimatedSection className="contact section" id="contato" aria-labelledby="contact-title">
@@ -47,10 +63,10 @@ export function Contact() {
         <div>
           <span className="section-label">Contato</span>
           <h2 className="section-title" id="contact-title">
-            Agende avaliação ou hospedagem
+            Agende sua avaliação e hospedagem
           </h2>
           <p className="section-lead">
-            Preencha o formulário e envie sua mensagem diretamente pelo WhatsApp.
+            Fale conosco pelo formulário — a mensagem abre direto no WhatsApp.
           </p>
 
           <div className="contact__info-item">
@@ -60,7 +76,7 @@ export function Contact() {
             <div>
               <strong>Endereço</strong>
               <p>
-                {STORE.address} — {STORE.city}
+                {settings.address} — {settings.city}
               </p>
             </div>
           </div>
@@ -70,7 +86,7 @@ export function Contact() {
             </div>
             <div>
               <strong>Telefone</strong>
-              <p>{STORE.phone}</p>
+              <p>{settings.phone}</p>
             </div>
           </div>
           <div className="contact__info-item">
@@ -79,7 +95,7 @@ export function Contact() {
             </div>
             <div>
               <strong>Horário</strong>
-              <p>{STORE.hours}</p>
+              <p>{settings.hours}</p>
             </div>
           </div>
         </div>
@@ -210,13 +226,13 @@ export function Contact() {
       </div>
 
       <a
-        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Olá! Gostaria de informações sobre hospedagem/creche no Pátio Canino.')}`}
+        href={floatHref}
         className="whatsapp-float"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Falar no WhatsApp"
       >
-        <img src={IMAGES.whatsappFloat} alt="" width={56} height={56} />
+        <img src={floatSrc} alt="" width={56} height={56} />
       </a>
     </AnimatedSection>
   )

@@ -1,36 +1,35 @@
 import { AnimatedSection, StaggerGroup, StaggerItem } from '../ui/AnimatedSection'
 import { IMAGES } from '../../config/constants'
+import { handleSectionNav } from '../../utils/scroll'
 
-const SERVICE_CARDS = [
+const SERVICE_PANELS = [
   {
     title: 'Hospedagem',
-    desc: 'Estadia livre de gaiolas com supervisão 24h, caminhas confortáveis e rotina familiar.',
+    desc: 'Estadia livre de gaiolas com supervisão 24h e rotina familiar.',
     price: 'A partir de R$ 95/dia',
+    image: IMAGES.gallery1,
+    alt: 'Cão confortável em ambiente de hospedagem',
   },
   {
     title: 'Creche (day-care)',
-    desc: 'Socialização diária, playground com grama e descanso enquanto você trabalha.',
+    desc: 'Socialização, playground com grama e descanso durante o dia.',
     price: 'A partir de R$ 65/dia',
+    image: IMAGES.services,
+    alt: 'Cão correndo em área de creche ao ar livre',
+  },
+  {
+    title: 'Enriquecimento',
+    desc: 'Comandos, agilidade e estímulos que reforçam confiança.',
+    price: 'A partir de R$ 55/sessão',
+    image: IMAGES.gallery3,
+    alt: 'Atividade de enriquecimento ambiental com cães',
   },
   {
     title: 'Passeios',
-    desc: 'Caminhadas supervisionadas seguindo as orientações do tutor de cada pet.',
+    desc: 'Caminhadas supervisionadas conforme a rotina do seu pet.',
     price: 'A partir de R$ 45/sessão',
-  },
-  {
-    title: 'Enriquecimento ambiental',
-    desc: 'Comandos, agilidade e estímulos que reduzem ansiedade e reforçam confiança.',
-    price: 'A partir de R$ 55/sessão',
-  },
-  {
-    title: 'Supervisão & medicamentos',
-    desc: 'Administração conforme receita, escovação e cuidados pontuais durante a estadia.',
-    price: 'Sob consulta',
-  },
-  {
-    title: 'Fotos e vídeos',
-    desc: 'Registro da rotina diária enviado pelo WhatsApp para você acompanhar de perto.',
-    price: 'Incluso no combo',
+    image: IMAGES.gallery2,
+    alt: 'Cão em passeio supervisionado',
   },
 ]
 
@@ -42,35 +41,39 @@ export function Services() {
       aria-labelledby="services-title"
     >
       <div className="container">
-        <div className="services__header">
-          <div>
-            <span className="section-label">Serviços</span>
-            <h2 className="section-title" id="services-title">
-              Cuidado completo para o seu melhor amigo
-            </h2>
-            <p className="section-lead">
-              Hospedagem, creche e passeios em um ambiente aberto, seguro e
-              acolhedor — sem gaiolas.
-            </p>
-          </div>
-          <div className="services__image">
-            <img
-              src={IMAGES.services}
-              alt="Cão correndo em área gramada ensolarada"
-              loading="lazy"
-            />
-          </div>
+        <div className="services__intro">
+          <span className="section-label">Serviços</span>
+          <h2 className="section-title" id="services-title">
+            O melhor para o seu melhor amigo
+          </h2>
+          <p className="section-lead">
+            Cuidado individual, diversão em grupo e bem-estar em um só lugar —
+            sem gaiolas, com estrutura pensada para cães.
+          </p>
         </div>
-        <StaggerGroup className="services__grid">
-          {SERVICE_CARDS.map((card) => (
-            <StaggerItem key={card.title} as="article" className="service-card">
-              <span className="service-card__mark" aria-hidden="true" />
-              <h3 className="service-card__title">{card.title}</h3>
-              <p className="service-card__desc">{card.desc}</p>
-              <p className="service-card__price">{card.price}</p>
+
+        <StaggerGroup className="services__panels">
+          {SERVICE_PANELS.map((panel) => (
+            <StaggerItem key={panel.title} as="article" className="service-panel">
+              <img src={panel.image} alt={panel.alt} loading="lazy" />
+              <div className="service-panel__body">
+                <h3>{panel.title}</h3>
+                <p>{panel.desc}</p>
+                <span>{panel.price}</span>
+              </div>
             </StaggerItem>
           ))}
         </StaggerGroup>
+
+        <div className="services__cta">
+          <a
+            href="#orcamento"
+            className="btn btn--primary"
+            onClick={(e) => handleSectionNav(e, 'orcamento')}
+          >
+            Simular estadia
+          </a>
+        </div>
       </div>
     </AnimatedSection>
   )

@@ -13,6 +13,10 @@ export const STORE = {
 export const STORAGE_KEYS = {
   customers: 'patiocanino-demo-customers',
   services: 'patiocanino-demo-services',
+  pets: 'patiocanino-demo-pets',
+  careLogs: 'patiocanino-demo-care-logs',
+  gallery: 'patiocanino-demo-gallery',
+  siteSettings: 'patiocanino-demo-site-settings',
   theme: 'patiocanino-demo-theme',
 } as const
 
@@ -28,6 +32,10 @@ export const IMAGES = {
   services: asset('images/services.jpg'),
   process: asset('images/process.jpg'),
   delivery: asset('images/delivery.jpg'),
+  gallery1: asset('images/gallery/gallery-1.jpg'),
+  gallery2: asset('images/gallery/gallery-2.jpg'),
+  gallery3: asset('images/gallery/gallery-3.jpg'),
+  gallery4: asset('images/gallery/gallery-4.jpg'),
   whatsappFloat: asset('images/whatsapp-float.png'),
   og: `${SITE_URL}images/og-image.jpg`,
 } as const

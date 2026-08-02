@@ -7,7 +7,8 @@ export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => {
     const stored = localStorage.getItem(STORAGE_KEYS.theme) as Theme | null
     if (stored === 'light' || stored === 'dark') return stored
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    // Painel demo inicia no tema claro (visual mais elegante e legível)
+    return 'light'
   })
 
   useEffect(() => {
