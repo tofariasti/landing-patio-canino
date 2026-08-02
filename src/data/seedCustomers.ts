@@ -1,5 +1,6 @@
 import type { Customer } from '../types/customer'
-import type { Order } from '../types/order'
+import type { Order, PaymentStatus } from '../types/order'
+import { resolvePaymentStatus } from '../types/order'
 
 function createOrder(
   serviceId: string,
@@ -15,7 +16,9 @@ function createOrder(
     delivery: false,
   },
   deliveryDate?: string,
+  paidAmount = 0,
 ): Order {
+  const paid = Math.min(Math.max(paidAmount, 0), total)
   return {
     id: crypto.randomUUID(),
     serviceId,
@@ -25,6 +28,8 @@ function createOrder(
     status,
     notes,
     total,
+    paidAmount: paid,
+    paymentStatus: resolvePaymentStatus(total, paid) as PaymentStatus,
     createdAt: '2026-05-10T10:00:00.000Z',
     deliveryDate,
   }
@@ -54,6 +59,7 @@ export const SEED_CUSTOMERS: Customer[] = [
           delivery: false,
         },
         '2026-08-12',
+        200,
       ),
       createOrder(
         'svc-2',
@@ -69,6 +75,7 @@ export const SEED_CUSTOMERS: Customer[] = [
           delivery: true,
         },
         '2026-05-20',
+        325,
       ),
     ],
   },
@@ -95,6 +102,7 @@ export const SEED_CUSTOMERS: Customer[] = [
           delivery: false,
         },
         '2026-08-08',
+        0,
       ),
     ],
   },
@@ -121,6 +129,7 @@ export const SEED_CUSTOMERS: Customer[] = [
           delivery: true,
         },
         '2026-08-10',
+        0,
       ),
     ],
   },

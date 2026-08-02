@@ -10,6 +10,7 @@ const NAV = [
   { to: '/app/pets', label: 'Pets' },
   { to: '/app/reservas', label: 'Reservas' },
   { to: '/app/rotina', label: 'Rotina' },
+  { to: '/app/financeiro', label: 'Financeiro' },
   { to: '/app/galeria', label: 'Galeria' },
   { to: '/app/servicos', label: 'Serviços' },
   { to: '/app/configuracoes', label: 'Config' },
@@ -17,9 +18,9 @@ const NAV = [
 
 const MOBILE_TABS = [
   { to: '/app', label: 'Início', end: true },
-  { to: '/app/pets', label: 'Pets' },
   { to: '/app/reservas', label: 'Reservas' },
-  { to: '/app/galeria', label: 'Galeria' },
+  { to: '/app/financeiro', label: 'Financeiro' },
+  { to: '/app/pets', label: 'Pets' },
   { to: '/app/rotina', label: 'Rotina' },
 ]
 

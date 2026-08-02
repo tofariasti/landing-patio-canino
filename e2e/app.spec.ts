@@ -69,6 +69,19 @@ test.describe('Mini-app', () => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
   })
 
+  test('finance page lists receivables and creates expense', async ({ page }) => {
+    await page.goto('./#/app/financeiro')
+    await expect(page.getByRole('heading', { name: 'Financeiro' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Contas a receber' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Registrar pgto' }).first()).toBeVisible()
+
+    await page.getByRole('button', { name: '+ Despesa' }).click()
+    await page.getByLabel('Descrição *').fill('E2E ração teste')
+    await page.getByLabel('Valor (R$) *').fill('55')
+    await page.getByRole('button', { name: 'Salvar' }).click()
+    await expect(page.getByText('E2E ração teste')).toBeVisible()
+  })
+
   test('edits brand identity and whatsapp', async ({ page }) => {
     await page.goto('./#/app/configuracoes')
     await page.getByLabel('Nome da marca *').fill('Pátio Demo Brand')

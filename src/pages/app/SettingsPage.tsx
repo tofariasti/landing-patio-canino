@@ -5,6 +5,7 @@ import { usePetsContext } from '../../context/PetsContext'
 import { useCareLogsContext } from '../../context/CareLogsContext'
 import { useGalleryContext } from '../../context/GalleryContext'
 import { useSiteSettingsContext } from '../../context/SiteSettingsContext'
+import { useFinanceContext } from '../../context/FinanceContext'
 import { useThemeContext } from '../../context/ThemeContext'
 import type { SiteSettings } from '../../types/siteSettings'
 import { MAX_IMAGE_BYTES, readFileAsDataUrl } from '../../utils/files'
@@ -17,6 +18,7 @@ export function SettingsPage() {
   const { pets, resetPets } = usePetsContext()
   const { logs, resetCareLogs } = useCareLogsContext()
   const { items, resetGallery } = useGalleryContext()
+  const { transactions, resetFinance } = useFinanceContext()
   const { settings, updateSettings, resetSettings, whatsappDigits } =
     useSiteSettingsContext()
 
@@ -66,7 +68,7 @@ export function SettingsPage() {
   function handleResetAll() {
     if (
       window.confirm(
-        'Restaurar dados demo originais? Isso apaga tutores, pets, rotina, galeria, serviços e identidade visual alterados localmente.',
+        'Restaurar dados demo originais? Isso apaga tutores, pets, rotina, financeiro, galeria, serviços e identidade visual alterados localmente.',
       )
     ) {
       resetCustomers()
@@ -74,6 +76,7 @@ export function SettingsPage() {
       resetPets()
       resetCareLogs()
       resetGallery()
+      resetFinance()
       resetSettings()
     }
   }
@@ -354,6 +357,7 @@ export function SettingsPage() {
           <li>Pets: {pets.length}</li>
           <li>Serviços: {services.length}</li>
           <li>Registros de rotina: {logs.length}</li>
+          <li>Lançamentos financeiros: {transactions.length}</li>
           <li>Itens de galeria: {items.filter((i) => !i.hidden).length}</li>
         </ul>
         <p className="help-text">

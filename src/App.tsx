@@ -5,12 +5,14 @@ import { usePets } from './hooks/usePets'
 import { useCareLogs } from './hooks/useCareLogs'
 import { useGalleryManager } from './hooks/useGalleryManager'
 import { useSiteSettings } from './hooks/useSiteSettings'
+import { useFinance } from './hooks/useFinance'
 import { useTheme } from './hooks/useTheme'
 import { ServicesContext } from './context/ServicesContext'
 import { CustomersContext } from './context/CustomersContext'
 import { PetsContext } from './context/PetsContext'
 import { CareLogsContext } from './context/CareLogsContext'
 import { GalleryContext } from './context/GalleryContext'
+import { FinanceContext } from './context/FinanceContext'
 import { SiteSettingsContext } from './context/SiteSettingsContext'
 import { ThemeContext } from './context/ThemeContext'
 import { LandingPage } from './pages/LandingPage'
@@ -22,6 +24,7 @@ import { PetsPage } from './pages/app/PetsPage'
 import { ReservationsPage } from './pages/app/ReservationsPage'
 import { CareLogsPage } from './pages/app/CareLogsPage'
 import { GalleryAdminPage } from './pages/app/GalleryAdminPage'
+import { FinancePage } from './pages/app/FinancePage'
 import { ServicesPage } from './pages/app/ServicesPage'
 import { SettingsPage } from './pages/app/SettingsPage'
 
@@ -32,6 +35,7 @@ export default function App() {
   const petsState = usePets()
   const careLogsState = useCareLogs()
   const galleryState = useGalleryManager()
+  const financeState = useFinance()
   const siteSettingsState = useSiteSettings()
 
   return (
@@ -42,22 +46,25 @@ export default function App() {
             <PetsContext.Provider value={petsState}>
               <CareLogsContext.Provider value={careLogsState}>
                 <GalleryContext.Provider value={galleryState}>
-                  <HashRouter>
-                    <Routes>
-                      <Route path="/" element={<LandingPage />} />
-                      <Route path="/app" element={<AppLayout />}>
-                        <Route index element={<DashboardPage />} />
-                        <Route path="clientes" element={<CustomersPage />} />
-                        <Route path="clientes/:id" element={<CustomerDetailPage />} />
-                        <Route path="pets" element={<PetsPage />} />
-                        <Route path="reservas" element={<ReservationsPage />} />
-                        <Route path="rotina" element={<CareLogsPage />} />
-                        <Route path="galeria" element={<GalleryAdminPage />} />
-                        <Route path="servicos" element={<ServicesPage />} />
-                        <Route path="configuracoes" element={<SettingsPage />} />
-                      </Route>
-                    </Routes>
-                  </HashRouter>
+                  <FinanceContext.Provider value={financeState}>
+                    <HashRouter>
+                      <Routes>
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/app" element={<AppLayout />}>
+                          <Route index element={<DashboardPage />} />
+                          <Route path="clientes" element={<CustomersPage />} />
+                          <Route path="clientes/:id" element={<CustomerDetailPage />} />
+                          <Route path="pets" element={<PetsPage />} />
+                          <Route path="reservas" element={<ReservationsPage />} />
+                          <Route path="rotina" element={<CareLogsPage />} />
+                          <Route path="financeiro" element={<FinancePage />} />
+                          <Route path="galeria" element={<GalleryAdminPage />} />
+                          <Route path="servicos" element={<ServicesPage />} />
+                          <Route path="configuracoes" element={<SettingsPage />} />
+                        </Route>
+                      </Routes>
+                    </HashRouter>
+                  </FinanceContext.Provider>
                 </GalleryContext.Provider>
               </CareLogsContext.Provider>
             </PetsContext.Provider>

@@ -3,6 +3,7 @@ import { useCustomersContext } from '../../context/CustomersContext'
 import { useServicesContext } from '../../context/ServicesContext'
 import { usePetsContext } from '../../context/PetsContext'
 import { useCareLogsContext } from '../../context/CareLogsContext'
+import { useFinanceContext } from '../../context/FinanceContext'
 import { STATUS_LABELS } from '../../types/order'
 import { formatCurrency } from '../../utils/pricing'
 
@@ -11,11 +12,13 @@ export function DashboardPage() {
   const { services } = useServicesContext()
   const { pets } = usePetsContext()
   const { logs } = useCareLogsContext()
+  const { summary, transactions } = useFinanceContext()
 
   const totalOrders = customers.reduce((sum, c) => sum + c.orders.length, 0)
-  const revenue = customers
+  const toReceive = customers
     .flatMap((c) => c.orders)
-    .reduce((sum, o) => sum + o.total, 0)
+    .filter((o) => (o.paymentStatus ?? 'pendente') !== 'pago')
+    .reduce((sum, o) => sum + Math.max(0, o.total - (o.paidAmount ?? 0)), 0)
 
   const inProgress = customers
     .flatMap((c) => c.orders.filter((o) => !['checkout', 'concluido'].includes(o.status)))
@@ -47,8 +50,8 @@ export function DashboardPage() {
           <p className="app-header__subtitle">Operação do hotel e creche</p>
         </div>
         <div className="app-header__actions">
-          <Link to="/app/pets" className="btn btn--outline btn--sm">
-            + Pet
+          <Link to="/app/financeiro" className="btn btn--outline btn--sm">
+            Financeiro
           </Link>
           <Link to="/app/clientes" className="btn btn--primary btn--sm">
             + Tutor
@@ -66,29 +69,33 @@ export function DashboardPage() {
           <div className="stat-card__label">Estadias em andamento</div>
         </div>
         <div className="stat-card">
-          <div className="stat-card__value">{todayLogs || logs.length}</div>
-          <div className="stat-card__label">Registros de rotina</div>
+          <div className="stat-card__value">{formatCurrency(summary.monthBalance)}</div>
+          <div className="stat-card__label">Saldo do mês</div>
         </div>
         <div className="stat-card">
-          <div className="stat-card__value">{medsAlert}</div>
-          <div className="stat-card__label">Com medicamento</div>
+          <div className="stat-card__value">{formatCurrency(toReceive)}</div>
+          <div className="stat-card__label">A receber</div>
         </div>
       </div>
 
       <div className="dashboard-grid">
         <div className="panel">
           <div className="panel__header">
-            <h2 className="panel__title">Faturamento demo</h2>
+            <h2 className="panel__title">Financeiro do mês</h2>
+            <Link to="/app/financeiro" className="btn btn--outline btn--sm">
+              Abrir
+            </Link>
           </div>
-          <p className="dashboard-revenue">{formatCurrency(revenue)}</p>
+          <p className="dashboard-revenue">{formatCurrency(summary.monthIncome)}</p>
           <p className="help-text">
-            {totalOrders} reservas · {activeServices} serviços ativos ·{' '}
-            {customers.length} tutores
+            Receitas · Despesas {formatCurrency(summary.monthExpense)} ·{' '}
+            {transactions.length} lançamentos · {totalOrders} reservas ·{' '}
+            {activeServices} serviços · {todayLogs || logs.length} rotina
           </p>
           <div className="quick-links">
+            <Link to="/app/financeiro">Ver financeiro</Link>
             <Link to="/app/reservas">Ver reservas</Link>
             <Link to="/app/rotina">Ver rotina</Link>
-            <Link to="/app/galeria">Gerenciar galeria</Link>
           </div>
         </div>
 
@@ -100,6 +107,7 @@ export function DashboardPage() {
             <li>{medsAlert} pet(s) com medicamento cadastrado</li>
             <li>{inProgress} estadia(s) em andamento</li>
             <li>{upcomingDeliveries.length} check-out(s) próximos</li>
+            <li>{formatCurrency(toReceive)} em aberto com tutores</li>
           </ul>
         </div>
       </div>

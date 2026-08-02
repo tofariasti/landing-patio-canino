@@ -16,6 +16,7 @@ export const STORAGE_KEYS = {
   pets: 'patiocanino-demo-pets',
   careLogs: 'patiocanino-demo-care-logs',
   gallery: 'patiocanino-demo-gallery',
+  finance: 'patiocanino-demo-finance',
   siteSettings: 'patiocanino-demo-site-settings',
   /** v2: padrão claro no painel (ignora preferência antiga “dark”) */
   theme: 'patiocanino-demo-theme-v2',

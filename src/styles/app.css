@@ -925,3 +925,49 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* —— Financeiro —— */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.is-negative {
+  color: var(--color-error) !important;
+}
+
+.is-positive {
+  color: var(--color-primary-dark) !important;
+}
+
+.status-pill--receita {
+  background: color-mix(in srgb, var(--color-primary) 16%, #fff);
+  color: var(--color-primary-dark);
+}
+
+.status-pill--despesa {
+  background: color-mix(in srgb, var(--color-error) 14%, #fff);
+  color: var(--color-error);
+}
+
+.status-pill--pay-pendente {
+  background: color-mix(in srgb, var(--color-sun) 16%, #fff);
+  color: var(--color-sun-dark);
+}
+
+.status-pill--pay-parcial {
+  background: color-mix(in srgb, var(--color-honey-light) 35%, #fff);
+  color: var(--color-sun-dark);
+}
+
+.status-pill--pay-pago {
+  background: color-mix(in srgb, var(--color-primary) 16%, #fff);
+  color: var(--color-primary-dark);
+}

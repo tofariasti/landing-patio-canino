@@ -3,15 +3,34 @@ import { SEED_CUSTOMERS } from '../data/seedCustomers'
 import { STORAGE_KEYS } from '../config/constants'
 import type { Customer, CustomerInput } from '../types/customer'
 import type { Order, OrderInput } from '../types/order'
+import { resolvePaymentStatus } from '../types/order'
 import type { Service } from '../types/service'
 import { calculateOrderTotal } from '../utils/pricing'
+
+function normalizeOrder(order: Order): Order {
+  const paidAmount = Math.max(0, order.paidAmount ?? 0)
+  const total = order.total ?? 0
+  return {
+    ...order,
+    paidAmount,
+    paymentStatus: order.paymentStatus ?? resolvePaymentStatus(total, paidAmount),
+  }
+}
+
+function normalizeCustomer(customer: Customer): Customer {
+  return {
+    ...customer,
+    orders: (customer.orders ?? []).map(normalizeOrder),
+  }
+}
 
 function loadCustomers(): Customer[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.customers)
     if (!raw) return SEED_CUSTOMERS
     const parsed = JSON.parse(raw) as Customer[]
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : SEED_CUSTOMERS
+    if (!Array.isArray(parsed) || parsed.length === 0) return SEED_CUSTOMERS
+    return parsed.map(normalizeCustomer)
   } catch {
     return SEED_CUSTOMERS
   }
@@ -48,7 +67,7 @@ export function useCustomers(getService: (id: string) => Service | undefined) {
       ...input,
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
-      orders: input.orders ?? [],
+      orders: (input.orders ?? []).map(normalizeOrder),
     }
     setCustomers((prev) => [...prev, customer])
     return customer
@@ -71,11 +90,15 @@ export function useCustomers(getService: (id: string) => Service | undefined) {
 
   const addOrder = useCallback(
     (customerId: string, order: OrderInput) => {
+      const total = resolveTotal(order, getService)
+      const paidAmount = Math.max(0, order.paidAmount ?? 0)
       const newOrder: Order = {
         ...order,
         id: crypto.randomUUID(),
         createdAt: new Date().toISOString(),
-        total: resolveTotal(order, getService),
+        total,
+        paidAmount,
+        paymentStatus: order.paymentStatus ?? resolvePaymentStatus(total, paidAmount),
       }
       setCustomers((prev) =>
         prev.map((c) =>
@@ -87,20 +110,18 @@ export function useCustomers(getService: (id: string) => Service | undefined) {
     [getService],
   )
 
-  const updateOrder = useCallback(
-    (customerId: string, order: Order) => {
-      setCustomers((prev) =>
-        prev.map((c) => {
-          if (c.id !== customerId) return c
-          const orders = c.orders.some((o) => o.id === order.id)
-            ? c.orders.map((o) => (o.id === order.id ? order : o))
-            : [...c.orders, order]
-          return { ...c, orders }
-        }),
-      )
-    },
-    [],
-  )
+  const updateOrder = useCallback((customerId: string, order: Order) => {
+    const normalized = normalizeOrder(order)
+    setCustomers((prev) =>
+      prev.map((c) => {
+        if (c.id !== customerId) return c
+        const orders = c.orders.some((o) => o.id === normalized.id)
+          ? c.orders.map((o) => (o.id === normalized.id ? normalized : o))
+          : [...c.orders, normalized]
+        return { ...c, orders }
+      }),
+    )
+  }, [])
 
   const deleteOrder = useCallback((customerId: string, orderId: string) => {
     setCustomers((prev) =>
