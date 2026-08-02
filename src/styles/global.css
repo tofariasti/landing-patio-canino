@@ -17,15 +17,15 @@
   --color-surface: #ffffff;
   --color-text: #14201c;
   --color-text-muted: #4a5c54;
-  --color-primary: #3f7d5a;
-  --color-primary-light: #6fad84;
-  --color-primary-dark: #2b5a40;
+  --color-primary: #2f6848;
+  --color-primary-light: #5a9a72;
+  --color-primary-dark: #1f4a34;
   --color-accent: #e8f3ec;
   --color-accent-warm: #fff6e0;
   --color-honey: #d4a017;
   --color-honey-light: #f0c75a;
   --color-mint: #8ec9a8;
-  --color-border: rgba(63, 125, 90, 0.16);
+  --color-border: rgba(47, 104, 72, 0.16);
   --color-shadow: rgba(20, 32, 28, 0.12);
   --color-error: #c43c3c;
   --color-success: #2f7a52;
@@ -201,12 +201,12 @@ textarea {
 }
 
 .btn--primary {
-  background: var(--color-primary);
+  background: var(--color-primary-dark);
   color: #fff;
 }
 
 .btn--primary:hover {
-  background: var(--color-primary-dark);
+  background: #163828;
   color: #fff;
 }
 
